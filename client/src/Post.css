@@ -1,0 +1,60 @@
+h3,
+span,
+div,
+p {
+  color: #455a64;
+}
+pre {
+  max-width: 98%;
+  padding: 0.6em;
+  width: 30em;
+}
+
+.delete-icon,
+.edit-icon {
+  margin-top: 0;
+  float: right;
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.post {
+  padding: 10px;
+  background-color: #eceff1;
+  width: 90%;
+  display: block;
+  margin: 2em auto;
+  box-shadow: 1px 1px 5px #455a64;
+  max-width: 40em;
+}
+.code {
+  background-color: #cfd8dc;
+  color: #37474f;
+  font-weight: 400;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 1px #cfd8dc;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.labels {
+  list-style: none;
+}
+
+.labels li {
+  background-color: purple;
+  color: white;
+  border-radius: 5px;
+  padding: 2px 5px;
+  display: inline;
+}

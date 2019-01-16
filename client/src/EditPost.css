@@ -1,0 +1,76 @@
+.edit-form {
+  width: 90%;
+  display: block;
+  margin: 2em auto;
+  box-shadow: 1px 1px 5px #455a64;
+  max-width: 40em;
+}
+
+.edit-form h3 {
+  text-align: center;
+  font-weight: 400;
+  display: inline-block;
+}
+.edit-form button {
+  font-size: 1em;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.edit-form button:hover {
+  color: white;
+  background-color: #607d8b;
+  box-shadow: 3px 3px 3px #607d8b;
+  transition: 0.3s;
+}
+
+.edit-form .input-field {
+  display: block;
+  margin: 0.4em auto;
+}
+
+.edit-form .input-field:hover {
+  border: 0.05em solid #263238;
+}
+
+.input-field {
+  display: block;
+  width: 400px;
+  outline: none;
+  font-size: 1em;
+  border: 0.05em solid #607d8b;
+  margin: 0.4em;
+  padding: 0.4em;
+  transition: 0.3s;
+}
+
+input:active,
+textarea:active,
+input:focus,
+textarea:focus {
+  box-shadow: 3px 3px 3px #546e7a;
+  transition: 0.3s;
+}
+
+.edit-action {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.edit-form button {
+  background-color: #455a64;
+  color: white;
+  width: 10em;
+  padding: 0.6em;
+  font-size: 1em;
+  display: inline-block;
+  text-align: center;
+  margin: 1.4em;
+  transition: 0.3s;
+}
+
+.edit-form button:hover {
+  background-color: #607d8b;
+  box-shadow: 3px 3px 3px #607d8b;
+  transition: 0.3s;
+}
