@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const { sign, verify } = require("jsonwebtoken");
 const DataSchema = require("./data");
 const UserSchema = require("./user");
-
+const port = process.env.PORT || API_PORT;
 const API_PORT = 3001;
 const app = express();
 const router = express.Router();
@@ -150,4 +150,4 @@ router.post("/loginUser", (req, res, next) => {
 
 app.use("/api", router);
 
-app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+app.listen(port, () => console.log(`LISTENING ON PORT ${port}`));
