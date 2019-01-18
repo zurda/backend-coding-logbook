@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-var session = require("express-session");
+const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const { sign, verify } = require("jsonwebtoken");
 const DataSchema = require("./data");
 const UserSchema = require("./user");
-// const API_PORT = 5000;
-// const port = process.env.PORT || API_PORT;
+const cors = require("cors");
+
 const app = express();
 const router = express.Router();
 
@@ -17,11 +17,11 @@ const { DB_USER, DB_PASS } = process.env;
 const dbRoute = `mongodb://${DB_USER}:${DB_PASS}@ds149344.mlab.com:49344/coding-diary`;
 const dbUsersRoute = `mongodb://${DB_USER}:${DB_PASS}@ds149414.mlab.com:49414/coding-diary-users`;
 
-var dataConn = mongoose.createConnection(dbRoute);
-var userConn = mongoose.createConnection(dbUsersRoute);
+const dataConn = mongoose.createConnection(dbRoute);
+const userConn = mongoose.createConnection(dbUsersRoute);
 
-var User = userConn.model("User", UserSchema);
-var Data = dataConn.model("Data", DataSchema);
+const User = userConn.model("User", UserSchema);
+const Data = dataConn.model("Data", DataSchema);
 
 let db = mongoose.connection;
 
@@ -31,6 +31,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const cookieSecret = "charlie!";
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
