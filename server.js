@@ -31,7 +31,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const cookieSecret = "charlie!";
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
