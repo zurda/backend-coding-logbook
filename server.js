@@ -8,11 +8,11 @@ const cookieParser = require("cookie-parser");
 const { sign, verify } = require("jsonwebtoken");
 const EntrySchema = require("./entry");
 const UserSchema = require("./user");
+const cors = require("cors");
 
 // long poling: using the http protocol to its limits
 // websockets: dedicated protocol for bidirectional communication
 
-const API_PORT = 3001;
 const app = express();
 const router = express.Router();
 
@@ -34,6 +34,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const cookieSecret = "charlie!";
 
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
@@ -152,4 +153,6 @@ router.post("/loginUser", (req, res, next) => {
 
 app.use("/api", router);
 
-app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`LISTENING ON PORT 5000`)
+);
