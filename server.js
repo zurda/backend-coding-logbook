@@ -34,7 +34,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const cookieSecret = "charlie!";
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "https://zurda.github.io" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
