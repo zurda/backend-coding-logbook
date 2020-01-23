@@ -139,9 +139,7 @@ router.post("/loginUser", (req, res, next) => {
           const token = sign(returnedUser.toJSON(), cookieSecret, {
             expiresIn: 604800
           });
-          res.status(200).cookie("auth", token);
-          res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
-          return res.json({ success: true });
+          return res.status(200).cookie("auth", token).json({ success: true });
         }
       }
     );
