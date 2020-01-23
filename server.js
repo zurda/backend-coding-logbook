@@ -140,6 +140,7 @@ router.post("/loginUser", (req, res, next) => {
             expiresIn: 604800
           });
           res.status(200).cookie("auth", token);
+          res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
           return res.json({ success: true });
         }
       }
