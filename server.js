@@ -16,7 +16,7 @@ const cors = require("cors");
 const app = express();
 const router = express.Router();
 
-const { DB_USER, DB_PASS } = process.env;
+const { DB_USER, DB_PASS, COOKIE_SECRET, SESSION_SECRET } = process.env;
 const dbRoute = `mongodb://${DB_USER}:${DB_PASS}@ds149344.mlab.com:49344/coding-diary`;
 const dbUsersRoute = `mongodb://${DB_USER}:${DB_PASS}@ds149414.mlab.com:49414/coding-diary-users`;
 
@@ -32,7 +32,6 @@ db.once("open", () => console.log("connected to the database"));
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-const cookieSecret = "charlie!";
 const allowedOrigins = ['http://localhost:3000', 'https://zurda.github.io'];
 
 app.use(cors({
@@ -51,10 +50,10 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
-app.use(cookieParser(cookieSecret));
+app.use(cookieParser(COOKIE_SECRET));
 app.use(
   session({
-    secret: "work hard",
+    secret: SESSION_SECRET,
     resave: true,
     saveUninitialized: false
   })
@@ -137,30 +136,32 @@ router.post("/putUser", (req, res, next) => {
 });
 
 router.post("/loginUser", (req, res, next) => {
+  const { logemail, logpassword } = req.body;
   if (req.body.logemail && req.body.logpassword) {
-    User.authenticate(
-      req.body.logemail,
-      req.body.logpassword,
-      (error, returnedUser) => {
-        if (error || !returnedUser) {
-          var err = new Error("Wrong email or password.");
-          err.status = 401;
-          return next(err);
-        } else {
-          req.session.userId = returnedUser._id;
-          console.log("user id in session", req.session.userId);
-          const token = sign(returnedUser.toJSON(), cookieSecret, {
-            expiresIn: 604800
-          });
-          return res.status(200).cookie("auth", token).json({ success: true });
-        }
+    User.authenticate(logemail, logpassword, (error, returnedUser) => {
+      if (error || !returnedUser) {
+        var err = new Error("Wrong email or password.");
+        err.status = 401;
+        return next(err);
+      } else {
+        req.session.userId = returnedUser._id;
+        const token = sign(returnedUser.toJSON(), COOKIE_SECRET, {
+          expiresIn: 604800
+        });
+        return res.status(200).send(token)
       }
+    }
     );
   } else {
     var err = new Error("All fields required.");
     err.status = 400;
     return next(err);
   }
+});
+
+router.post("/logoutUser", (req, res, next) => {
+  req.session.userId = null;
+  return res.status(200).send(null)
 });
 
 app.use("/api", router);
