@@ -1,6 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const { sign } = require("jsonwebtoken");
+// const { sign } = require("jsonwebtoken");
 const EntrySchema = require("../entry");
 const UserSchema = require("../user");
 
@@ -108,10 +108,11 @@ const login = (req, res, next) => {
         return next(err);
       } else {
         req.session.userId = returnedUser._id;
-        const token = sign(returnedUser.toJSON(), COOKIE_SECRET, {
-          expiresIn: 604800
-        });
-        return res.status(200).send(token)
+        // const token = sign(returnedUser.toJSON(), COOKIE_SECRET, {
+        //   expiresIn: 604800
+        // });
+        // return res.status(200).send(token)
+        return res.status(200)
       }
     }
     );
@@ -122,7 +123,7 @@ const login = (req, res, next) => {
   }
 }
 
-const logout = (req, res, next) => {
+const logout = (req, res) => {
   req.session.userId = null;
   return res.status(200).send(null)
 }
