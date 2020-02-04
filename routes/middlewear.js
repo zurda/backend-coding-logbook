@@ -31,6 +31,7 @@ app.use(
     cookie: {
       domain: 'https://zurda.github.io/',
       maxAge: 60000,
+      sameSite: false,
     }
   })
 );
